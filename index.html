@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Raianderson Severo</title>
+    <!-- 🔤 Fonte CINZEL -->
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <!-- Ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cinzel', serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #000000, #1a1a1a, #0d0d0d, #000000);
+            background-size: 400% 400%;
+            animation: gradientBG 18s ease infinite;
+            color: #fff;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .container {
+            background: linear-gradient(145deg, rgba(255,255,255,0.02), rgba(255,255,255,0.06));
+            backdrop-filter: blur(12px);
+            border-radius: 28px;
+            padding: 60px 40px;
+            max-width: 90%;
+            width: 100%;
+            max-width: 560px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.7),
+                        inset 0 1px 0 rgba(255,255,255,0.05);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .container.show {
+            opacity: 1;
+        }
+
+        /* Foto caindo */
+        .profile-pic {
+            width: 170px;
+            height: 170px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            margin-bottom: 40px;
+            box-shadow: 0 6px 30px rgba(0, 0, 0, 0.75);
+            transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            position: relative;
+            filter: none;
+            transform: translateY(-100px);
+            opacity: 0;
+            animation: none;
+        }
+
+        @keyframes dropIn {
+            0% { transform: translateY(-100px); opacity: 0; }
+            80% { transform: translateY(10px); opacity: 1; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        /* Nome deslizando */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 14px;
+            letter-spacing: 1px;
+            background: linear-gradient(to right, #ffffff, #e0e0e0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+            animation: glowText 4s ease-in-out infinite alternate;
+            line-height: 1.2;
+            transform: translateX(-100%);
+            opacity: 0;
+            animation: none;
+        }
+
+        @keyframes glowText {
+            from { text-shadow: 0 0 8px rgba(255,255,255,0.3); }
+            to { text-shadow: 0 0 16px rgba(255,255,255,0.5), 0 0 24px rgba(220,220,220,0.3); }
+        }
+
+        .age {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #cccccc;
+            margin: 16px 0;
+            text-shadow: 0 1px 3px rgba(0,0,0,0.5);
+            letter-spacing: 1.5px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.4s ease 0.3s;
+        }
+
+        /* 🌊 Descrição em ondas */
+        .description {
+            font-size: 1.08rem;
+            line-height: 1.8;
+            margin: 35px 0;
+            color: #b0b0b0;
+            font-weight: 400;
+            padding: 0 20px;
+            position: relative;
+            font-feature-settings: "liga", "kern";
+            opacity: 0;
+            transform: translateY(15px);
+            transition: all 0.5s ease 0.4s;
+            display: inline-block;
+            letter-spacing: 0.5px;
+        }
+
+        .description.animate-wave {
+            opacity: 1;
+            transform: translateY(0);
+            animation: waterWave 4.5s ease-in-out infinite;
+        }
+
+        @keyframes waterWave {
+            0%, 100% { transform: translateY(0) skewX(0deg); }
+            25% { transform: translateY(-4px) skewX(1.5deg); }
+            50% { transform: translateY(0) skewX(0deg); }
+            75% { transform: translateY(4px) skewX(-1.5deg); }
+        }
+
+        .description::after {
+            content: '';
+            display: block;
+            width: 60px;
+            height: 1.5px;
+            background: linear-gradient(to right, transparent, #666, transparent);
+            margin: 25px auto 0;
+        }
+
+        .tags {
+            margin-top: 40px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.5s ease 0.5s;
+        }
+
+        .highlight {
+            background: linear-gradient(145deg, rgba(255,255,255,0.04), rgba(255,255,255,0.08));
+            padding: 14px 28px;
+            border-radius: 50px;
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            margin: 12px;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #e0e0e0;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(6px);
+            letter-spacing: 1px;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .highlight:hover {
+            background: linear-gradient(145deg, rgba(255,255,255,0.08), rgba(255,255,255,0.12));
+            transform: translateY(-7px) scale(1.07);
+            box-shadow: 0 14px 35px rgba(0, 0, 0, 0.45);
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+
+        /* ✨ EFEITO DE PISCAR NOS ÍCONES — INFINITO E SUAVE */
+        .highlight i {
+            color: #bbbbbb;
+            font-size: 1.1em;
+            animation: pulseGlow 2.5s ease-in-out infinite;
+        }
+
+        @keyframes pulseGlow {
+            0%, 100% {
+                text-shadow: 0 0 4px rgba(255,255,255,0.2);
+                transform: scale(1);
+            }
+            50% {
+                text-shadow: 0 0 12px rgba(255,255,255,0.6), 0 0 18px rgba(220,220,255,0.4);
+                transform: scale(1.05);
+            }
+        }
+
+        /* Responsividade */
+        @media (max-width: 600px) {
+            .container {
+                padding: 50px 25px;
+                border-radius: 24px;
+            }
+            h1 {
+                font-size: 2.1rem;
+                letter-spacing: 0.5px;
+            }
+            .profile-pic {
+                width: 140px;
+                height: 140px;
+            }
+            .description {
+                font-size: 1.02rem;
+                padding: 0 15px;
+                letter-spacing: 0.3px;
+            }
+            .highlight {
+                padding: 12px 24px;
+                font-size: 0.95rem;
+                letter-spacing: 0.8px;
+            }
+        }
+
+        /* Brilho sutil no container */
+        .container::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 28px;
+            padding: 2px;
+            background: linear-gradient(45deg, #ffffff00, #ffffff20, #ffffff00);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.6s;
+        }
+
+        .container:hover::after {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container" id="main-container">
+        <img src="https://i.postimg.cc/Hk9QTDz0/Retrato-Fotorrealista-Aprimorado.png" alt="Raianderson Severo" class="profile-pic" id="profile-pic">
+
+        <h1 id="name-title">Raianderson Severo</h1>
+        <div class="age">18 anos</div>
+
+        <div class="description" id="wave-description">
+            Jovem da FJU, apaixonado por tecnologia e organização. 
+            Praticante de Excel Avançado pelo SENAC, buscando sempre evoluir e impactar positivamente através do conhecimento.
+        </div>
+
+        <div class="tags">
+            <a href="https://www.instagram.com/oficialfju?igsh=MW93bTJqajY1YzQzcQ==" target="_blank" class="highlight">
+                <i class="fas fa-church"></i> FJU
+            </a>
+            <a href="https://www.instagram.com/senacpiaui?igsh=YWVzeDV5MTZ4YXVm" target="_blank" class="highlight">
+                <i class="fas fa-file-excel"></i> Excel Avançado - SENAC
+            </a>
+            <span class="highlight"><i class="fas fa-lightbulb"></i> Jovem Inovador</span>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const container = document.getElementById('main-container');
+            const profilePic = document.getElementById('profile-pic');
+            const nameTitle = document.getElementById('name-title');
+            const age = document.querySelector('.age');
+            const description = document.getElementById('wave-description');
+            const tags = document.querySelector('.tags');
+
+            setTimeout(() => { container.classList.add('show'); }, 200);
+            setTimeout(() => { profilePic.style.animation = 'dropIn 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards'; }, 300);
+            setTimeout(() => { nameTitle.style.animation = 'slideInFromLeft 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards'; }, 400);
+            setTimeout(() => { age.style.opacity = 1; age.style.transform = 'translateY(0)'; }, 700);
+            setTimeout(() => {
+                description.style.opacity = 1;
+                description.style.transform = 'translateY(0)';
+                setTimeout(() => { description.classList.add('animate-wave'); }, 100);
+            }, 800);
+            setTimeout(() => { tags.style.opacity = 1; tags.style.transform = 'translateY(0)'; }, 900);
+
+            profilePic.addEventListener('click', function() {
+                this.style.transform = 'scale(1.18) rotate(6deg)';
+                this.style.boxShadow = '0 0 55px rgba(255, 255, 255, 0.35)';
+                setTimeout(() => {
+                    this.style.transform = 'scale(1.08) rotate(2deg)';
+                    this.style.boxShadow = '0 0 50px rgba(255, 255, 255, 0.25)';
+                }, 600);
+            });
+        });
+    </script>
+
+</body>
+</html>
